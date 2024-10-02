@@ -3,8 +3,8 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/Orken1119/Register/internal/controllers/auth_controller/tokenutil"
-	models "github.com/Orken1119/Register/internal/models/auth_models"
+	"github.com/Orken1119/Register/internal/controller/auth_controller/tokenutil"
+	models "github.com/Orken1119/Register/internal/models"
 	"github.com/gin-gonic/gin"
 )
 

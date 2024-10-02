@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	controller "github.com/Orken1119/Register/internal/controllers"
+	controller "github.com/Orken1119/Register/internal/controller"
 	pkg "github.com/Orken1119/Register/pkg"
 
 	"github.com/gin-gonic/gin"
 )
+
 func main() {
 	app, err := pkg.App()
 
@@ -21,5 +22,5 @@ func main() {
 
 	controller.Setup(app, ginRouter)
 
-	ginRouter.Run(fmt.Sprintf(":%d", 1136))
+	ginRouter.Run(fmt.Sprintf(":%d", 1140))
 }

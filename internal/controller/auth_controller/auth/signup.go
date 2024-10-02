@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"unicode"
 
-	"github.com/Orken1119/Ozinshe/internal/controllers/auth_controller/tokenutil"
-	models "github.com/Orken1119/Register/internal/models/auth_models"
+	"github.com/Orken1119/Register/internal/controller/auth_controller/tokenutil"
+	models "github.com/Orken1119/Register/internal/models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -15,17 +15,10 @@ type AuthController struct {
 	UserRepository models.UserRepository
 }
 
-//	    @Accept		json
-//	    @Produce	json
-//	    @Param request body models.UserRequest true "query params"
-//	    @Success	200		{object}	models.SuccessResponse
-//		@Failure	default	{object}	models.ErrorResponse
-//	    @Router		/signup [post]
 func (uc AuthController) Signup(c *gin.Context) {
 	var request models.UserRequest
 	if err := c.ShouldBind(&request); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
-
 			Result: []models.ErrorDetail{
 				{
 					Code:    "ERROR_BIND_JSON",
@@ -113,7 +106,7 @@ func (uc AuthController) Signup(c *gin.Context) {
 			Result: []models.ErrorDetail{
 				{
 					Code:    "ERROR_GET_USER",
-					Message: "User with this email doesn't found",
+					Message: "User with this email wasn't found",
 				},
 			},
 		})

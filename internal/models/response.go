@@ -1,4 +1,4 @@
-package auth_models
+package models
 
 type SuccessResponse struct {
 	Result   interface{} `json:"result"`
