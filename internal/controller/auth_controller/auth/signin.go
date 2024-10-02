@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Orken1119/Ozinshe/internal/controllers/auth_controller/tokenutil"
-	models "github.com/Orken1119/Ozinshe/internal/models/auth_models"
+	models "github.com/Orken1119/Register/internal/models/auth_models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/smtp"
 
-	models "github.com/Orken1119/Ozinshe/internal/models/auth_models"
+	models "github.com/Orken1119/Register/internal/models/auth_models"
 	"github.com/gin-gonic/gin"
 )
 

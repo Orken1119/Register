@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/username/GitRepoName/internal/models"
+	"github.com/Orken1119/Register/internal/models"
 )
 
 type UserRepository struct {
