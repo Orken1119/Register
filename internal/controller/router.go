@@ -16,6 +16,8 @@ func Setup(app pkg.Application, router *gin.Engine) {
 		UserRepository: repository.NewUserRepository(db),
 	}
 
+	router.POST("/forgot-password", loginController.ForgotPassword)
+	router.POST("/change-forgotten-password", loginController.ChangeForgottenPassword)
 	router.POST("/signup", loginController.Signup)
 	router.POST("/signin", loginController.Signin)
 
