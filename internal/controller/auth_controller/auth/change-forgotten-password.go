@@ -32,15 +32,18 @@ func (fp *AuthController) ChangeForgottenPassword(c *gin.Context) {
 
 	_, err = fp.UserRepository.GetUserByEmail(c, request.Email)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Result: []models.ErrorDetail{
-				{
-					Code:    "ERROR_GET_USER",
-					Message: "User with this email doesn't found",
+		_, err = fp.UserRepository.GetVolunteerByEmail(c, request.Email)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, models.ErrorResponse{
+				Result: []models.ErrorDetail{
+					{
+						Code:    "ERROR_GET_USER",
+						Message: "User with this email doesn't found",
+					},
 				},
-			},
-		})
-		return
+			})
+			return
+		}
 	}
 
 	err = ValidatePassword(request.Password.Password)
@@ -98,18 +101,21 @@ func (fp *AuthController) ChangeForgottenPassword(c *gin.Context) {
 
 	err = fp.UserRepository.ChangeForgottenPassword(c, code, request.Email, request.Password.Password)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Result: []models.ErrorDetail{
-				{
-					Code:    "ERROR_CHANGE_RASSWORD",
-					Message: "Couldn't change password",
-					Metadata: models.Properties{
-						Properties1: err.Error(),
+		err := fp.UserRepository.ChangeForgottenVolunteersPassword(c, code, request.Email, request.Password.Password)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, models.ErrorResponse{
+				Result: []models.ErrorDetail{
+					{
+						Code:    "ERROR_CHANGE_RASSWORD",
+						Message: "Couldn't change password",
+						Metadata: models.Properties{
+							Properties1: err.Error(),
+						},
 					},
 				},
-			},
-		})
-		return
+			})
+			return
+		}
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Password was changed"})

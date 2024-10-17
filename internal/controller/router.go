@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"github.com/Orken1119/Register/internal/controller/auth_controller/middleware"
 	"github.com/Orken1119/Register/pkg"
 	"github.com/gin-gonic/gin"
 
@@ -16,11 +15,11 @@ func Setup(app pkg.Application, router *gin.Engine) {
 		UserRepository: repository.NewUserRepository(db),
 	}
 
+	router.POST("/signin-as-volunteer", loginController.SigninAsVolunteer)
+	router.POST("/signup-as-volunteer", loginController.SignupAsVolunteer)
 	router.POST("/forgot-password", loginController.ForgotPassword)
 	router.POST("/change-forgotten-password", loginController.ChangeForgottenPassword)
 	router.POST("/signup", loginController.Signup)
 	router.POST("/signin", loginController.Signin)
-
-	router.Use(middleware.JWTAuth(`access-secret-key`))
 
 }

@@ -46,8 +46,13 @@ func (ur *UserRepository) ChangeForgottenPassword(c context.Context, code string
 		return fmt.Errorf("invalid reset code")
 	}
 
-	updateQuery := `UPDATE users SET password = $1, created_at = $2 WHERE email = $3;`
-	_, err = ur.db.Exec(c, updateQuery, newPassword, currentTime, email)
+	updateQuery := `UPDATE users
+	SET password = $1, created_at = $2 
+	WHERE email = $3 
+	RETURNING email;`
+
+	var updatedEmail string
+	err = ur.db.QueryRow(c, updateQuery, newPassword, currentTime, email).Scan(&updatedEmail)
 	if err != nil {
 		return err
 	}
@@ -111,7 +116,7 @@ func (ur *UserRepository) GetUserByID(c context.Context, userID int) (models.Use
 	return user, nil
 }
 
-func (ur *UserRepository) GetProfile(c context.Context, userID int) (models.User, error) {
+func (ur *UserRepository) GetUserProfile(c context.Context, userID int) (models.User, error) {
 	user := models.User{}
 
 	query := `SELECT id, email, phone_number, roleid, created_at FROM users where id = $1`
@@ -123,4 +128,77 @@ func (ur *UserRepository) GetProfile(c context.Context, userID int) (models.User
 	}
 
 	return user, nil
+}
+
+func (ur *UserRepository) GetVolunteerByEmail(c context.Context, email string) (models.User, error) {
+	user := models.User{}
+
+	query := `SELECT id, email, password, phone_number, created_at, volunteer_name, about_me FROM volunteers where email = $1`
+	row := ur.db.QueryRow(c, query, email)
+	err := row.Scan(&user.ID, &user.Email, &user.Password, &user.PhoneNumber, &user.CreatedAt, &user.Name, &user.Information)
+
+	if err != nil {
+		return user, nil
+	}
+	return user, nil
+
+}
+
+func (ur *UserRepository) CreateVolunteer(c context.Context, volunteer models.VolunteerRequest) (int, error) {
+	var userID int
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	userQuery := `INSERT INTO volunteers(
+		email, password, phone_number,created_at, volunteer_name, about_me)
+		VALUES ($1, $2, $3, $4, $5, $6) returning id;`
+
+	err := ur.db.QueryRow(c, userQuery, volunteer.Email, volunteer.Password.Password, volunteer.PhoneNumber, currentTime, volunteer.Name, volunteer.Information).Scan(&userID)
+	if err != nil {
+		return 0, err
+	}
+	return userID, nil
+}
+
+func (ur *UserRepository) GetVolunteerProfile(c context.Context, userID int) (models.User, error) {
+	user := models.User{}
+
+	query := `SELECT id, email, phone_number, roleid, created_at, volunteer_name, about_me FROM volunteers where id = $1`
+	row := ur.db.QueryRow(c, query, userID)
+	err := row.Scan(&user.ID, &user.Email, &user.PhoneNumber, &user.CreatedAt, &user.Name, &user.Information)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (ur *UserRepository) ChangeForgottenVolunteersPassword(c context.Context, code string, email string, newPassword string) error {
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+
+	var storedCode string
+
+	codeQuery := `SELECT code FROM PasswordResetCode WHERE email = $1`
+
+	err := ur.db.QueryRow(c, codeQuery, email).Scan(&storedCode)
+
+	if err != nil {
+		return fmt.Errorf("failed to retrieve reset code: %v", err)
+	}
+
+	if storedCode != code {
+		return fmt.Errorf("invalid reset code")
+	}
+
+	updateQuery := `UPDATE volunteers 
+	SET password = $1, created_at = $2 
+	WHERE email = $3 
+	RETURNING email;`
+
+	var updatedEmail string
+	err = ur.db.QueryRow(c, updateQuery, newPassword, currentTime, email).Scan(&updatedEmail)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
