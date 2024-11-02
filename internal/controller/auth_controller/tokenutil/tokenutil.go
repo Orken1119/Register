@@ -30,7 +30,6 @@ func CreateAccessToken(user *models.User, secret string, expirationHour int) (ac
 	}
 	return t, err
 }
-
 func CreateRefreshToken(user *models.User, secret string, expiry int) (refreshToken string, err error) {
 	claimsRefresh := models.JwtRefreshClaims{
 		ID: user.ID,

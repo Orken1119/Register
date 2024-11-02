@@ -9,6 +9,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// @Accept json
+// @Produce json
+// @Param request body models.VolunteerRequest true "query params"
+// @Success 200 {object} models.SuccessResponse
+// @Failure default {object} models.ErrorResponse
+// @Router /signup-as-volunteer [post]
 func (vc AuthController) SignupAsVolunteer(c *gin.Context) {
 	var request models.VolunteerRequest
 	if err := c.ShouldBind(&request); err != nil {

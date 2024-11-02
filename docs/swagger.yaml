@@ -1,0 +1,241 @@
+definitions:
+  github_com_Orken1119_Register_internal_models.ChangePasswordRequest:
+    properties:
+      code:
+        type: string
+      email:
+        type: string
+      password:
+        $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
+    type: object
+  github_com_Orken1119_Register_internal_models.ErrorDetail:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      metadata:
+        $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Properties'
+    type: object
+  github_com_Orken1119_Register_internal_models.ErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorDetail'
+        type: array
+    type: object
+  github_com_Orken1119_Register_internal_models.ForgotPasswordRequest:
+    properties:
+      email:
+        type: string
+    type: object
+  github_com_Orken1119_Register_internal_models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  github_com_Orken1119_Register_internal_models.Password:
+    properties:
+      confirmPassword:
+        type: string
+      password:
+        type: string
+    type: object
+  github_com_Orken1119_Register_internal_models.Properties:
+    properties:
+      additionalProp1:
+        type: string
+      additionalProp2:
+        type: string
+      additionalProp3:
+        type: string
+    type: object
+  github_com_Orken1119_Register_internal_models.SuccessResponse:
+    properties:
+      metadata:
+        $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Properties'
+      result: {}
+    type: object
+  github_com_Orken1119_Register_internal_models.UserRequest:
+    properties:
+      email:
+        type: string
+      password:
+        $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
+      phoneNumber:
+        type: string
+    type: object
+  github_com_Orken1119_Register_internal_models.VolunteerRequest:
+    properties:
+      email:
+        type: string
+      information:
+        type: string
+      name:
+        type: string
+      password:
+        $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
+      phoneNumber:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:1140
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Register API
+  version: "1.0"
+paths:
+  /change-forgotten-password:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /forgot-password:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ForgotPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /signin:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /signin-as-volunteer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /signup-as-volunteer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.VolunteerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
