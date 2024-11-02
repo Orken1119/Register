@@ -8,7 +8,6 @@ import (
 	controller "github.com/Orken1119/Register/internal/controller"
 	pkg "github.com/Orken1119/Register/pkg"
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/gin-swagger"
 )
 
 // @title           Register API
