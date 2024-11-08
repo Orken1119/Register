@@ -1,11 +1,20 @@
-FROM golang:1.23
+# Используем базовый образ Golang
+FROM golang:1.20
 
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-COPY ./go.mod ./go.sum ./
+# Копируем все файлы проекта в контейнер
+COPY . /app
+
+# Загружаем зависимости
 RUN go mod download
 
-COPY . .
-RUN go build -o ./bin cmd/main.go
+# Компилируем приложение
+RUN go build -tags netgo -ldflags '-s -w' -o app
 
-COPY --from=builder /app/bin /
+# Открываем нужный порт (например, 8080)
+EXPOSE 8080
+
+# Запускаем приложение
+CMD ["./app"]
