@@ -3,7 +3,9 @@ package pkg
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
+	"os"
 	"time"
 
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -11,7 +13,10 @@ import (
 
 func NewConn() (*pgxpool.Pool, error) {
 
-	connStr := "postgres://postgres:Akatsuki2005@localhost:5433/postgres?sslmode=disable"
+	connStr := os.Getenv("DATABASE_URL")
+	if connStr == "" {
+		log.Fatal("DATABASE_URL is not set")
+	}
 
 	cfg, err := pgxpool.ParseConfig(connStr)
 
