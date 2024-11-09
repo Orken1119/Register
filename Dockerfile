@@ -4,11 +4,11 @@ FROM golang:1.23
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем все файлы проекта в контейнер
-COPY . /app
-
-# Загружаем зависимости
+COPY go.mod go.sum ./
 RUN go mod download
+
+# Копируем оставшиеся файлы проекта
+COPY . .
 
 # Компилируем приложение
 RUN go build -tags netgo -ldflags '-s -w' -o app
