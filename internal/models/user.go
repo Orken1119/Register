@@ -60,3 +60,7 @@ type UserRepository interface {
 	GetVolunteerByEmail(c context.Context, email string) (User, error)
 	ChangeForgottenVolunteersPassword(c context.Context, code string, email string, newPassword string) error
 }
+
+type RequestRepository interface {
+	MakeRequest(c context.Context)
+}
