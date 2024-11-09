@@ -21,7 +21,7 @@ func Setup(app pkg.Application, router *gin.Engine) {
 	}
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://your-frontend.com"}, // Укажите URL вашего фронтенда
+		AllowOrigins:     []string{"*"}, // Укажите URL вашего фронтенда
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
