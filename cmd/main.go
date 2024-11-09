@@ -1,16 +1,13 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
-	"os"
 
 	_ "github.com/Orken1119/Register/docs"
 	controller "github.com/Orken1119/Register/internal/controller"
 	pkg "github.com/Orken1119/Register/pkg"
 	"github.com/gin-gonic/gin"
-	"github.com/jackc/pgx"
 )
 
 // @title           Register API

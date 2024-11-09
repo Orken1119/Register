@@ -8,13 +8,12 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Копируем оставшиеся файлы проекта
-COPY . .
-
+COPY . /app
 # Компилируем приложение
-RUN go build -tags netgo -ldflags '-s -w' -o app
+RUN go build -tags netgo -ldflags '-s -w' -o app ./cmd
 
 # Открываем нужный порт (например, 8080)
-EXPOSE 8080
+EXPOSE 1140
 
 # Запускаем приложение
 CMD ["./app"]
