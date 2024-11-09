@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:1140",
+    "host": "register-4-vyz2.onrender.com",
     "paths": {
         "/change-forgotten-password": {
             "post": {
