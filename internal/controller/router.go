@@ -20,6 +20,7 @@ func Setup(app pkg.Application, router *gin.Engine) {
 		UserRepository: repository.NewUserRepository(db),
 	}
 
+	// CORS settings
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"}, // Укажите URL вашего фронтенда
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
