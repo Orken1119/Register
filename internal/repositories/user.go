@@ -18,7 +18,7 @@ func NewUserRepository(db *pgxpool.Pool) models.UserRepository {
 }
 func (ur *UserRepository) CreatePasswordResetCode(c context.Context, email string, code string) error {
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
-	query := `INSERT INTO passwordresetcode(email, code, createdAt)
+	query := `INSERT INTO passwordresetcode(email, code, created_at)
 	VALUES ($1, $2, $3);`
 
 	_, err := ur.db.Exec(c, query, email, code, currentTime)
