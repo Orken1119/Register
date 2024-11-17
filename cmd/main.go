@@ -22,7 +22,7 @@ import (
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      register-e7ia.onrender.com
+// @host      localhost:1140
 
 // @securityDefinitions.apikey Bearer
 // @in header

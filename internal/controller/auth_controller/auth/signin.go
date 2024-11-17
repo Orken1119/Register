@@ -67,7 +67,7 @@ func (lc *AuthController) Signin(c *gin.Context) {
 		})
 		return
 	}
-	accessToken, err := tokenutil.CreateAccessToken(&user, `access-secret-key`, 50) //
+	accessToken, err := tokenutil.CreateAccessToken(user, `access-secret-key`, 50) //
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Result: []models.ErrorDetail{

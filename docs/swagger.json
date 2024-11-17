@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "register-e7ia.onrender.com",
+    "host": "localhost:1140",
     "paths": {
         "/change-forgotten-password": {
             "post": {

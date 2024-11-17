@@ -3,7 +3,6 @@ package auth
 import (
 	"fmt"
 	"net/http"
-	"time"
 	"unicode"
 
 	"github.com/Orken1119/Register/internal/controller/auth_controller/tokenutil"
@@ -106,7 +105,7 @@ func (uc AuthController) Signup(c *gin.Context) {
 		})
 		return
 	}
-	time.Sleep(20 * time.Second)
+
 	user, err = uc.UserRepository.GetUserByEmail(c, request.Email)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
@@ -120,7 +119,7 @@ func (uc AuthController) Signup(c *gin.Context) {
 		return
 	}
 
-	accessToken, err := tokenutil.CreateAccessToken(&user, `access-secret-key`, 50)
+	accessToken, err := tokenutil.CreateAccessToken(user, `access-secret-key`, 50)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Result: []models.ErrorDetail{

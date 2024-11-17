@@ -74,17 +74,16 @@ func (ur *UserRepository) CreateUser(c context.Context, user models.UserRequest)
 	return userID, nil
 }
 
-func (ur *UserRepository) GetUserByEmail(c context.Context, email string) (models.User, error) {
+func (ur *UserRepository) GetUserByEmail(c context.Context, email string) (*models.User, error) {
 	user := models.User{}
 
 	query := `SELECT id, email, password, phone_number, roleid, created_at FROM users where email = $1`
 	row := ur.db.QueryRow(c, query, email)
 	err := row.Scan(&user.ID, &user.Email, &user.Password, &user.PhoneNumber, &user.RoleID, &user.CreatedAt)
-
 	if err != nil {
-		return user, err
+		return &user, err
 	}
-	return user, nil
+	return &user, nil
 
 }
 

@@ -48,7 +48,7 @@ type ForgotPasswordRequest struct {
 }
 
 type UserRepository interface {
-	GetUserByEmail(c context.Context, email string) (User, error)
+	GetUserByEmail(c context.Context, email string) (*User, error)
 	GetUserByID(c context.Context, userID int) (User, error)
 	GetUserProfile(c context.Context, userID int) (User, error)
 	GetVolunteerProfile(c context.Context, userID int) (User, error)

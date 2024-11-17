@@ -385,7 +385,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "register-e7ia.onrender.com",
+	Host:             "localhost:1140",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Register API",
