@@ -49,7 +49,7 @@ func (lc *AuthController) Signin(c *gin.Context) {
 			Result: []models.ErrorDetail{
 				{
 					Code:    "ERROR_GET_USER",
-					Message: "User with this email doesn't found",
+					Message: "User with this email wasn't found",
 				},
 			},
 		})

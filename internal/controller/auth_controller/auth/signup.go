@@ -17,7 +17,7 @@ type AuthController struct {
 
 // @Accept json
 // @Produce json
-// @Param request body models.UserRequest true "query params"
+// @Param request body models.UserRequest true "body json"
 // @Success 200 {object} models.SuccessResponse
 // @Failure default {object} models.ErrorResponse
 // @Router /signup [post]

@@ -194,7 +194,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: query params
+      - description: body json
         in: body
         name: request
         required: true
