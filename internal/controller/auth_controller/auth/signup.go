@@ -113,6 +113,9 @@ func (uc AuthController) Signup(c *gin.Context) {
 				{
 					Code:    "ERROR_GET_USER",
 					Message: "User with this email wasn't found",
+					Metadata: models.Properties{
+						Properties1: err.Error(),
+					},
 				},
 			},
 		})
