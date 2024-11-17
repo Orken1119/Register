@@ -11,7 +11,7 @@ import (
 
 // @Accept json
 // @Produce json
-// @Param request body models.LoginRequest true "query params"
+// @Param request body models.LoginRequest true "body json"
 // @Success 200 {object} models.SuccessResponse
 // @Failure default {object} models.ErrorResponse
 // @Router /signin [post]

@@ -110,7 +110,7 @@ const docTemplate = `{
                 ],
                 "parameters": [
                     {
-                        "description": "query params",
+                        "description": "body json",
                         "name": "request",
                         "in": "body",
                         "required": true,
