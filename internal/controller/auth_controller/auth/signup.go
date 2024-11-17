@@ -106,7 +106,7 @@ func (uc AuthController) Signup(c *gin.Context) {
 		})
 		return
 	}
-	time.Sleep(3 * time.Second)
+	time.Sleep(20 * time.Second)
 	user, err = uc.UserRepository.GetUserByEmail(c, request.Email)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{
