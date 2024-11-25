@@ -11,9 +11,11 @@ type User struct {
 	Name        string    `json:"name,omitempty"`
 	Password    string    `json:"password,omitempty"`
 	PhoneNumber string    `json:"phoneNumber"`
-	Information string    `json:"information,omitempty"`
 	RoleID      uint      `json:"roleId"`
 	CreatedAt   time.Time `json:"createdAt"`
+	Skills      string    `json:"skills"`
+	City        string    `json:"city"`
+	Age         int       `json:"age"`
 }
 
 type ChangePasswordRequest struct {
@@ -34,6 +36,21 @@ type VolunteerRequest struct {
 	PhoneNumber string   `json:"phoneNumber"`
 	Information string   `json:"information"`
 	Name        string   `json:"name"`
+	Skills      string   `json:"skills"`
+	City        string   `json:"city"`
+	Age         int      `json:"age"`
+	RoleID      int      `json:"roleId"`
+}
+
+type VolunteerProfile struct {
+	ID          uint   `json:"id"`
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phoneNumber"`
+	Information string `json:"information"`
+	Name        string `json:"name"`
+	Skills      string `json:"skills"`
+	City        string `json:"city"`
+	Age         int    `json:"age"`
 }
 
 type LoginRequest struct {
@@ -54,7 +71,7 @@ type UserRepository interface {
 	GetUserByEmail(c context.Context, email string) (*User, error)
 	GetUserByID(c context.Context, userID int) (User, error)
 	GetUserProfile(c context.Context, userID int) (User, error)
-	GetVolunteerProfile(c context.Context, userID int) (User, error)
+	GetVolunteerProfile(c context.Context, userID int) (VolunteerProfile, error)
 	GetCodeByEmail(c context.Context, email string) (string, error)
 	CreateUser(c context.Context, user UserRequest) (int, error)
 	CreateVolunteer(c context.Context, user VolunteerRequest) (int, error)

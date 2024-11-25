@@ -10,6 +10,8 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/Orken1119/Register/internal/controller/auth_controller/auth"
+	"github.com/Orken1119/Register/internal/controller/auth_controller/middleware"
+	"github.com/Orken1119/Register/internal/controller/auth_controller/user"
 	repository "github.com/Orken1119/Register/internal/repositories"
 )
 
@@ -17,6 +19,10 @@ func Setup(app pkg.Application, router *gin.Engine) {
 	db := app.DB
 
 	loginController := &auth.AuthController{
+		UserRepository: repository.NewUserRepository(db),
+	}
+
+	userController := &user.UserController{
 		UserRepository: repository.NewUserRepository(db),
 	}
 
@@ -37,5 +43,15 @@ func Setup(app pkg.Application, router *gin.Engine) {
 	router.POST("/change-forgotten-password", loginController.ChangeForgottenPassword)
 	router.POST("/signup", loginController.Signup)
 	router.POST("/signin", loginController.Signin)
+
+	router.Use(middleware.JWTAuth(`access-secret-key`))
+
+	userRouter := router.Group("/user")
+	{
+		userRouter.GET("/profile", userController.GetProfile)
+		userRouter.POST("/edit-profile", userController.EditPersonalData)
+		userRouter.PUT("/change-password", userController.ChangePassword)
+
+	}
 
 }

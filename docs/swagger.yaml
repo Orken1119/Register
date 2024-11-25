@@ -69,6 +69,10 @@ definitions:
     type: object
   github_com_Orken1119_Register_internal_models.VolunteerRequest:
     properties:
+      age:
+        type: integer
+      city:
+        type: string
       email:
         type: string
       information:
@@ -79,11 +83,15 @@ definitions:
         $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
       phoneNumber:
         type: string
+      roleId:
+        type: integer
+      skills:
+        type: string
     type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
-host: register-e7ia.onrender.com
+host: localhost:1136
 info:
   contact:
     email: support@swagger.io
@@ -233,6 +241,25 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /user/profile:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - user
 securityDefinitions:
   Bearer:
     in: header

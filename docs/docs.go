@@ -239,6 +239,38 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/user/profile": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -351,6 +383,12 @@ const docTemplate = `{
         "github_com_Orken1119_Register_internal_models.VolunteerRequest": {
             "type": "object",
             "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "city": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -364,6 +402,12 @@ const docTemplate = `{
                     "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.Password"
                 },
                 "phoneNumber": {
+                    "type": "string"
+                },
+                "roleId": {
+                    "type": "integer"
+                },
+                "skills": {
                     "type": "string"
                 }
             }
@@ -385,7 +429,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "register-e7ia.onrender.com",
+	Host:             "localhost:1136",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Register API",

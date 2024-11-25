@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "register-e7ia.onrender.com",
+    "host": "localhost:1136",
     "paths": {
         "/change-forgotten-password": {
             "post": {
@@ -232,6 +232,38 @@
                     }
                 }
             }
+        },
+        "/user/profile": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -344,6 +376,12 @@
         "github_com_Orken1119_Register_internal_models.VolunteerRequest": {
             "type": "object",
             "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "city": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -357,6 +395,12 @@
                     "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.Password"
                 },
                 "phoneNumber": {
+                    "type": "string"
+                },
+                "roleId": {
+                    "type": "integer"
+                },
+                "skills": {
                     "type": "string"
                 }
             }
