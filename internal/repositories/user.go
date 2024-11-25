@@ -147,10 +147,28 @@ func (ur *UserRepository) CreateVolunteer(c context.Context, volunteer models.Vo
 	var userID int
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	userQuery := `INSERT INTO volunteers(
-		email, password, phone_number, volunteer_name, created_at, skills, city, age)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning id;`
+		email, 
+		password, 
+		phone_number, 
+		volunteer_name, 
+		created_at, 
+		skills, 
+		city, 
+		age, 
+		role_id)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id;`
 
-	err := ur.db.QueryRow(c, userQuery, volunteer.Email, volunteer.Password.Password, volunteer.PhoneNumber, volunteer.Name, currentTime, volunteer.Skills, volunteer.Skills, volunteer.City, volunteer.Age).Scan(&userID)
+	err := ur.db.QueryRow(c,
+		userQuery,
+		volunteer.Email,
+		volunteer.Password.Password,
+		volunteer.PhoneNumber,
+		volunteer.Name,
+		currentTime,
+		volunteer.Skills,
+		volunteer.City,
+		volunteer.Age,
+		2).Scan(&userID)
 	if err != nil {
 		return 0, err
 	}
@@ -195,6 +213,41 @@ func (ur *UserRepository) ChangeForgottenVolunteersPassword(c context.Context, c
 
 	var updatedEmail string
 	err = ur.db.QueryRow(c, updateQuery, newPassword, currentTime, email).Scan(&updatedEmail)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (ur *UserRepository) EditPersonalData(c context.Context, userID int, volunteer models.VolunteerPersonalData) error {
+	query := `UPDATE volunteers
+	SET 
+		email = $1,
+		phone_number = $2,
+		volunteer_name = $3,
+		skills = $4,
+		city = $5,
+		age = $6
+	WHERE id = $7 ;
+	`
+	_, err := ur.db.Exec(c, query, volunteer.Email, volunteer.PhoneNumber, volunteer.Name, volunteer.Skills, volunteer.City, volunteer.Age, userID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (ur *UserRepository) ChangePassword(c context.Context, userID int, password string) error {
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+
+	query := `UPDATE volunteers
+	SET
+	password = $1,
+	created_at = $2
+	where
+	id = $3`
+	_, err := ur.db.Exec(c, query, password, currentTime, userID)
 	if err != nil {
 		return err
 	}

@@ -67,6 +67,21 @@ definitions:
       phoneNumber:
         type: string
     type: object
+  github_com_Orken1119_Register_internal_models.VolunteerPersonalData:
+    properties:
+      age:
+        type: integer
+      city:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phoneNumber:
+        type: string
+      skills:
+        type: string
+    type: object
   github_com_Orken1119_Register_internal_models.VolunteerRequest:
     properties:
       age:
@@ -75,23 +90,19 @@ definitions:
         type: string
       email:
         type: string
-      information:
-        type: string
       name:
         type: string
       password:
         $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
       phoneNumber:
         type: string
-      roleId:
-        type: integer
       skills:
         type: string
     type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
-host: localhost:1136
+host: localhost:1140
 info:
   contact:
     email: support@swagger.io
@@ -105,6 +116,50 @@ info:
   title: Register API
   version: "1.0"
 paths:
+  /authentication/signin-as-volunteer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+  /authentication/signup-as-volunteer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.VolunteerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
   /change-forgotten-password:
     post:
       consumes:
@@ -153,17 +208,10 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
-  /signin:
+  /ivents/create-ivent:
     post:
       consumes:
       - application/json
-      parameters:
-      - description: body json
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest'
       produces:
       - application/json
       responses:
@@ -175,12 +223,92 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
-  /signin-as-volunteer:
+      security:
+      - Bearer: []
+      tags:
+      - ivent
+  /ivents/delete-ivent:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - ivent
+  /ivents/get-ivent-by-id:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - ivent
+  /ivents/get-ivents:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - ivent
+  /ivents/update-ivent:
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - ivent
+  /signin:
     post:
       consumes:
       - application/json
       parameters:
-      - description: query params
+      - description: body json
         in: body
         name: request
         required: true
@@ -219,8 +347,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
-  /signup-as-volunteer:
-    post:
+  /user/change-password:
+    put:
       consumes:
       - application/json
       parameters:
@@ -229,18 +357,52 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.VolunteerRequest'
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.Password'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse'
+            additionalProperties:
+              type: string
+            type: object
         default:
           description: ""
           schema:
             $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - user
+  /user/edit-profile:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Orken1119_Register_internal_models.VolunteerPersonalData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse'
+      security:
+      - Bearer: []
+      tags:
+      - user
   /user/profile:
     get:
       consumes:

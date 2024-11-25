@@ -14,7 +14,7 @@ import (
 // @Param request body models.LoginRequest true "query params"
 // @Success 200 {object} models.SuccessResponse
 // @Failure default {object} models.ErrorResponse
-// @Router /signin-as-volunteer [post]
+// @Router /authentication/signin-as-volunteer [post]
 func (vl *AuthController) SigninAsVolunteer(c *gin.Context) {
 	var loginRequest models.LoginRequest
 

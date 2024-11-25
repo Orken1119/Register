@@ -24,6 +24,76 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/authentication/signin-as-volunteer": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/signup-as-volunteer": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.VolunteerRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/change-forgotten-password": {
             "post": {
                 "consumes": [
@@ -100,24 +170,21 @@ const docTemplate = `{
                 }
             }
         },
-        "/signin": {
+        "/ivents/create-ivent": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "description": "body json",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.LoginRequest"
-                        }
-                    }
+                "tags": [
+                    "ivent"
                 ],
                 "responses": {
                     "200": {
@@ -135,7 +202,135 @@ const docTemplate = `{
                 }
             }
         },
-        "/signin-as-volunteer": {
+        "/ivents/delete-ivent": {
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ivent"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/ivents/get-ivent-by-id": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ivent"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/ivents/get-ivents": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ivent"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/ivents/update-ivent": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ivent"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -145,7 +340,7 @@ const docTemplate = `{
                 ],
                 "parameters": [
                     {
-                        "description": "query params",
+                        "description": "body json",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -205,13 +400,21 @@ const docTemplate = `{
                 }
             }
         },
-        "/signup-as-volunteer": {
-            "post": {
+        "/user/change-password": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "parameters": [
                     {
@@ -220,7 +423,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.VolunteerRequest"
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.Password"
                         }
                     }
                 ],
@@ -228,7 +431,56 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.SuccessResponse"
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/edit-profile": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.VolunteerPersonalData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "default": {
@@ -380,6 +632,29 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_Orken1119_Register_internal_models.VolunteerPersonalData": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "skills": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_Orken1119_Register_internal_models.VolunteerRequest": {
             "type": "object",
             "properties": {
@@ -392,9 +667,6 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "information": {
-                    "type": "string"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -403,9 +675,6 @@ const docTemplate = `{
                 },
                 "phoneNumber": {
                     "type": "string"
-                },
-                "roleId": {
-                    "type": "integer"
                 },
                 "skills": {
                     "type": "string"
@@ -429,7 +698,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:1136",
+	Host:             "localhost:1140",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Register API",

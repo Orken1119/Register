@@ -32,14 +32,21 @@ type UserRequest struct {
 
 type VolunteerRequest struct {
 	Email       string   `json:"email"`
-	Password    Password `json:"password"`
+	Password    Password `json:"password,omitempty"`
 	PhoneNumber string   `json:"phoneNumber"`
-	Information string   `json:"information"`
 	Name        string   `json:"name"`
 	Skills      string   `json:"skills"`
 	City        string   `json:"city"`
 	Age         int      `json:"age"`
-	RoleID      int      `json:"roleId"`
+}
+
+type VolunteerPersonalData struct {
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phoneNumber"`
+	Name        string `json:"name"`
+	Skills      string `json:"skills"`
+	City        string `json:"city"`
+	Age         int    `json:"age"`
 }
 
 type VolunteerProfile struct {
@@ -79,6 +86,8 @@ type UserRepository interface {
 	CreatePasswordResetCode(c context.Context, email string, code string) error
 	GetVolunteerByEmail(c context.Context, email string) (User, error)
 	ChangeForgottenVolunteersPassword(c context.Context, code string, email string, newPassword string) error
+	ChangePassword(c context.Context, userID int, password string) error
+	EditPersonalData(c context.Context, userID int, volunteer VolunteerPersonalData) error
 }
 
 type RequestRepository interface {
