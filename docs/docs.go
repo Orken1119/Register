@@ -186,6 +186,17 @@ const docTemplate = `{
                 "tags": [
                     "ivent"
                 ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.MainIvent"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -202,7 +213,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/ivents/delete-ivent": {
+        "/ivents/delete-ivent/{id}": {
             "delete": {
                 "security": [
                     {
@@ -218,6 +229,15 @@ const docTemplate = `{
                 "tags": [
                     "ivent"
                 ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -234,7 +254,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/ivents/get-ivent-by-id": {
+        "/ivents/get-ivent-by-id/{id}": {
             "get": {
                 "security": [
                     {
@@ -249,6 +269,15 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "ivent"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -313,6 +342,17 @@ const docTemplate = `{
                 ],
                 "tags": [
                     "ivent"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.Ivent"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -573,6 +613,47 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_Orken1119_Register_internal_models.Ivent": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "estimated_work_hours": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "information": {
+                    "type": "string"
+                },
+                "ivent_name": {
+                    "type": "string"
+                },
+                "members_count": {
+                    "type": "integer"
+                },
+                "organization": {
+                    "type": "string"
+                },
+                "people_count": {
+                    "type": "integer"
+                },
+                "poster_url": {
+                    "type": "string"
+                },
+                "preview_url": {
+                    "type": "string"
+                },
+                "skill_direction": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_Orken1119_Register_internal_models.LoginRequest": {
             "type": "object",
             "properties": {
@@ -580,6 +661,44 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Orken1119_Register_internal_models.MainIvent": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "estimated_work_hours": {
+                    "type": "integer"
+                },
+                "information": {
+                    "type": "string"
+                },
+                "ivent_name": {
+                    "type": "string"
+                },
+                "members_count": {
+                    "type": "integer"
+                },
+                "organization": {
+                    "type": "string"
+                },
+                "people_count": {
+                    "type": "integer"
+                },
+                "poster_url": {
+                    "type": "string"
+                },
+                "preview_url": {
+                    "type": "string"
+                },
+                "skill_direction": {
+                    "type": "string"
+                },
+                "time": {
                     "type": "string"
                 }
             }
@@ -641,6 +760,9 @@ const docTemplate = `{
                 "city": {
                     "type": "string"
                 },
+                "direction": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -698,7 +820,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:1140",
+	Host:             "register-e7ia.onrender.com",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Register API",

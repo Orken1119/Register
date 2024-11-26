@@ -1,4 +1,4 @@
-package auth
+package ivent
 
 import (
 	"net/http"
@@ -11,10 +11,11 @@ import (
 // @Tags		ivent
 // @Accept		json
 // @Produce	json
+// @Param id path int true "id"
 // @Security Bearer
 // @Success	200		{object}	models.SuccessResponse
 // @Failure	default	{object}	models.ErrorResponse
-// @Router		/ivents/get-ivent-by-id [get]
+// @Router		/ivents/get-ivent-by-id/{id} [get]
 func (av *IventController) GetIventById(c *gin.Context) {
 	idVal := c.Param("id")
 	id, err := strconv.Atoi(idVal)

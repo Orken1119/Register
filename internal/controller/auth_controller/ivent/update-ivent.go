@@ -1,4 +1,4 @@
-package auth
+package ivent
 
 import (
 	"net/http"
@@ -10,6 +10,7 @@ import (
 // @Tags		ivent
 // @Accept		json
 // @Produce	json
+// @Param request body models.Ivent true "query params"
 // @Security Bearer
 // @Success	200		{object}	models.SuccessResponse
 // @Failure	default	{object}	models.ErrorResponse

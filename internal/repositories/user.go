@@ -77,9 +77,9 @@ func (ur *UserRepository) CreateUser(c context.Context, user models.UserRequest)
 func (ur *UserRepository) GetUserByEmail(c context.Context, email string) (*models.User, error) {
 	var user models.User
 
-	query := `SELECT id, email, password, phone_number, roleid, created_at FROM users where email = $1`
+	query := `SELECT id, email, password, phone_number, roleid FROM users where email = $1`
 	row := ur.db.QueryRow(c, query, email)
-	err := row.Scan(&user.ID, &user.Email, &user.Password, &user.PhoneNumber, &user.RoleID, &user.CreatedAt)
+	err := row.Scan(&user.ID, &user.Email, &user.Password, &user.PhoneNumber, &user.RoleID)
 	if err != nil {
 		return &user, err
 	}

@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:1140",
+    "host": "register-e7ia.onrender.com",
     "paths": {
         "/authentication/signin-as-volunteer": {
             "post": {
@@ -179,6 +179,17 @@
                 "tags": [
                     "ivent"
                 ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.MainIvent"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -195,7 +206,7 @@
                 }
             }
         },
-        "/ivents/delete-ivent": {
+        "/ivents/delete-ivent/{id}": {
             "delete": {
                 "security": [
                     {
@@ -211,6 +222,15 @@
                 "tags": [
                     "ivent"
                 ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -227,7 +247,7 @@
                 }
             }
         },
-        "/ivents/get-ivent-by-id": {
+        "/ivents/get-ivent-by-id/{id}": {
             "get": {
                 "security": [
                     {
@@ -242,6 +262,15 @@
                 ],
                 "tags": [
                     "ivent"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -306,6 +335,17 @@
                 ],
                 "tags": [
                     "ivent"
+                ],
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_Orken1119_Register_internal_models.Ivent"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -566,6 +606,47 @@
                 }
             }
         },
+        "github_com_Orken1119_Register_internal_models.Ivent": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "estimated_work_hours": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "information": {
+                    "type": "string"
+                },
+                "ivent_name": {
+                    "type": "string"
+                },
+                "members_count": {
+                    "type": "integer"
+                },
+                "organization": {
+                    "type": "string"
+                },
+                "people_count": {
+                    "type": "integer"
+                },
+                "poster_url": {
+                    "type": "string"
+                },
+                "preview_url": {
+                    "type": "string"
+                },
+                "skill_direction": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_Orken1119_Register_internal_models.LoginRequest": {
             "type": "object",
             "properties": {
@@ -573,6 +654,44 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_Orken1119_Register_internal_models.MainIvent": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "estimated_work_hours": {
+                    "type": "integer"
+                },
+                "information": {
+                    "type": "string"
+                },
+                "ivent_name": {
+                    "type": "string"
+                },
+                "members_count": {
+                    "type": "integer"
+                },
+                "organization": {
+                    "type": "string"
+                },
+                "people_count": {
+                    "type": "integer"
+                },
+                "poster_url": {
+                    "type": "string"
+                },
+                "preview_url": {
+                    "type": "string"
+                },
+                "skill_direction": {
+                    "type": "string"
+                },
+                "time": {
                     "type": "string"
                 }
             }
@@ -632,6 +751,9 @@
                     "type": "integer"
                 },
                 "city": {
+                    "type": "string"
+                },
+                "direction": {
                     "type": "string"
                 },
                 "email": {

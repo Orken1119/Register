@@ -1,4 +1,4 @@
-package auth
+package ivent
 
 import (
 	"net/http"

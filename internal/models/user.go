@@ -12,10 +12,10 @@ type User struct {
 	Password    string    `json:"password,omitempty"`
 	PhoneNumber string    `json:"phoneNumber"`
 	RoleID      uint      `json:"roleId"`
-	CreatedAt   time.Time `json:"createdAt"`
-	Skills      string    `json:"skills"`
-	City        string    `json:"city"`
-	Age         int       `json:"age"`
+	CreatedAt   time.Time `json:"created_at"`
+	Skills      string    `json:"skills,omitempty"`
+	City        string    `json:"city,omitempty"`
+	Age         int       `json:"age,omitempty"`
 }
 
 type ChangePasswordRequest struct {
@@ -47,17 +47,18 @@ type VolunteerPersonalData struct {
 	Skills      string `json:"skills"`
 	City        string `json:"city"`
 	Age         int    `json:"age"`
+	Direction   string `json:"direction"`
 }
 
 type VolunteerProfile struct {
 	ID          uint   `json:"id"`
 	Email       string `json:"email"`
 	PhoneNumber string `json:"phoneNumber"`
-	Information string `json:"information"`
 	Name        string `json:"name"`
 	Skills      string `json:"skills"`
 	City        string `json:"city"`
 	Age         int    `json:"age"`
+	Direction   string `json:"direction"`
 }
 
 type LoginRequest struct {

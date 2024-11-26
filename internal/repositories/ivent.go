@@ -17,21 +17,55 @@ func NewIventRepository(db *pgxpool.Pool) models.IventRepository {
 
 func (iv *IventRepository) CreateIvent(c context.Context, ivent *models.MainIvent) (*models.Ivent, error) {
 	var ivent1 models.Ivent
+
 	userQuery := `
 	INSERT INTO ivents (
-		ivent_name, information, organization, poster_url, preview_url, skill_direction
+		ivent_name, 
+		information, 
+		organization, 
+		poster_url, 
+		preview_url, 
+		skill_direction, 
+		address, 
+		time, 
+		members_count, 
+		estimated_work_hours
 	) 
-	VALUES ($1, $2, $3, $4, $5, $6)
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 	RETURNING id;`
 
 	var id int
 
-	err := iv.db.QueryRow(c, userQuery, ivent.Name, ivent.Information, ivent.Organization, ivent.PosterUrl, ivent.PreviewUrl, ivent.SkillsDirection).Scan(&id)
+	err := iv.db.QueryRow(
+		c,
+		userQuery,
+		ivent.Name,
+		ivent.Information,
+		ivent.Organization,
+		ivent.PosterUrl,
+		ivent.PreviewUrl,
+		ivent.SkillsDirection,
+		ivent.Address,
+		ivent.Time,
+		ivent.CountOfPeople,
+		ivent.EstimatedWorkHours,
+	).Scan(&id)
 	if err != nil {
 		return nil, err
 	}
 
 	ivent1.ID = id
+	ivent1.Name = ivent.Name
+	ivent1.Information = ivent.Information
+	ivent1.Organization = ivent.Organization
+	ivent1.PosterUrl = ivent.PosterUrl
+	ivent1.PreviewUrl = ivent.PreviewUrl
+	ivent1.SkillsDirection = ivent.SkillsDirection
+	ivent1.Address = ivent.Address
+	ivent1.Time = ivent.Time
+	ivent1.CountOfPeople = ivent.CountOfPeople
+	ivent1.EstimatedWorkHours = ivent.EstimatedWorkHours
+
 	return &ivent1, nil
 }
 
@@ -56,11 +90,28 @@ func (iv *IventRepository) UpdateIvent(c context.Context, ivent *models.Ivent) e
     	organization = $3,
     	poster_url = $4,
     	preview_url = $5,
-    	skill_direction = $6
-	WHERE id = $7;
+    	skill_direction = $6,
+		address = $7,
+		time = $8,
+		people_count = $9,
+		estimated_work_hours = $11
+	WHERE id = $12;
 	`
 
-	_, err := iv.db.Exec(c, query, ivent.Name, ivent.Information, ivent.Organization, ivent.PosterUrl, ivent.PreviewUrl, ivent.SkillsDirection, ivent.ID)
+	_, err := iv.db.Exec(
+		c,
+		query,
+		ivent.Name,
+		ivent.Information,
+		ivent.Organization,
+		ivent.PosterUrl,
+		ivent.PreviewUrl,
+		ivent.SkillsDirection,
+		ivent.Address,
+		ivent.Time,
+		ivent.CountOfPeople,
+		ivent.EstimatedWorkHours,
+		ivent.ID)
 	if err != nil {
 		return err
 	}
@@ -86,10 +137,16 @@ func (iv *IventRepository) GetAllIvent(c context.Context) (*[]models.Ivent, erro
 		if err = rows.Scan(
 			&ivent.ID,
 			&ivent.Name,
+			&ivent.Information,
 			&ivent.Organization,
 			&ivent.PosterUrl,
 			&ivent.PreviewUrl,
 			&ivent.SkillsDirection,
+			&ivent.Address,
+			&ivent.Time,
+			&ivent.CountOfPeople,
+			&ivent.HowManyPeopleAccepted,
+			&ivent.EstimatedWorkHours,
 		); err != nil {
 			return nil, err
 		}
@@ -106,7 +163,19 @@ func (iv *IventRepository) GetAllIvent(c context.Context) (*[]models.Ivent, erro
 
 func (iv *IventRepository) GetIventById(c context.Context, id int) (*models.Ivent, error) {
 	query := `
-	SELECT id, ivent_name, information, organization, poster_url, preview_url, skill_direction 
+	SELECT 
+		id, 
+		ivent_name, 
+		information, 
+		organization, 
+		poster_url,
+		preview_url, 
+		skill_direction,
+		address,
+		time,
+		people_count,
+		members_count,
+		estimated_work_hours 
 	FROM ivents 
 	WHERE id = $1`
 
@@ -120,6 +189,11 @@ func (iv *IventRepository) GetIventById(c context.Context, id int) (*models.Iven
 		&ivent.PosterUrl,
 		&ivent.PreviewUrl,
 		&ivent.SkillsDirection,
+		&ivent.Address,
+		&ivent.Time,
+		&ivent.CountOfPeople,
+		&ivent.HowManyPeopleAccepted,
+		&ivent.EstimatedWorkHours,
 	)
 
 	if err != nil {

@@ -66,9 +66,9 @@ func Setup(app pkg.Application, router *gin.Engine) {
 	{
 		iventRouter.POST("/create-ivent", iventController.CreateIvent)
 		iventRouter.GET("/get-ivents", iventController.GetAllIvent)
-		iventRouter.GET("/get-ivent-by-id", iventController.GetIventById)
+		iventRouter.GET("/get-ivent-by-id/:id", iventController.GetIventById)
 		iventRouter.PUT("/update-ivent", iventController.UpdateIvent)
-		iventRouter.DELETE("/delete-ivent", iventController.DeleteIvent)
+		iventRouter.DELETE("/delete-ivent/:id", iventController.DeleteIvent)
 	}
 
 }

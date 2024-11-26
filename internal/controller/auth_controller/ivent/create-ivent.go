@@ -1,4 +1,4 @@
-package auth
+package ivent
 
 import (
 	"net/http"
@@ -14,6 +14,7 @@ type IventController struct {
 // @Tags		ivent
 // @Accept		json
 // @Produce	json
+// @Param request body models.MainIvent true "query params"
 // @Security Bearer
 // @Success	200		{object}	models.SuccessResponse
 // @Failure	default	{object}	models.ErrorResponse
